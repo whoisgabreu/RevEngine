@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Início — {{ tenant.name }}{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1><i class="bi bi-house me-2" style="color:var(--primary)"></i>Olá, {{ user.username }}!</h1>
+  <p class="text-muted mb-0">Bem-vindo ao painel de <strong>{{ tenant.name }}</strong></p>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card p-4 h-100">
+      <h2 class="fw-semibold mb-3" style="font-size:1.1rem;"><i class="bi bi-qr-code me-2" style="color:var(--primary)"></i>Gerar QR Code Fixo</h2>
+      <p class="text-muted small">QR Code sem valor pré-definido. O cliente escaneará e se cadastrará normalmente.</p>
+      <a href="/gerar-qr" class="btn btn-primary mt-auto">
+        <i class="bi bi-qr-code-scan me-2"></i>Gerar QR Code
+      </a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card p-4 h-100">
+      <h2 class="fw-semibold mb-3" style="font-size:1.1rem;"><i class="bi bi-cash-coin me-2" style="color:var(--accent)"></i>Gerar QR Code com Valor</h2>
+      <p class="text-muted small">Associe um valor à visita. Ideal para registrar compras ou serviços.</p>
+      <form action="/gerar-qr" method="get" class="d-flex gap-2 mt-auto">
+        <input type="number" name="valor" step="0.01" min="0" placeholder="Ex: 150.00" class="form-control" required>
+        <button type="submit" class="btn btn-primary text-nowrap">
+          <i class="bi bi-arrow-right-circle me-1"></i>Gerar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="card p-4 mt-3">
+  <h2 class="fw-semibold mb-2" style="font-size:1.1rem;"><i class="bi bi-link-45deg me-2" style="color:var(--primary)"></i>URL de Scan do seu Tenant</h2>
+  <p class="text-muted small mb-2">Compartilhe este link diretamente para captura de leads.</p>
+  <code style="background:var(--surface2);padding:.5rem .75rem;border-radius:8px;display:block;word-break:break-all;font-size:.85rem;">{{ base_url }}</code>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Login — RevEngine{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-4 col-sm-10">
+    <div class="text-center mb-4">
+      <i class="bi bi-qr-code-scan" style="font-size:3rem;color:var(--primary)"></i>
+      <h1 class="mt-2 fw-bold" style="font-size:1.75rem;">RevEngine</h1>
+      <p class="text-muted">Sistema de Captação de Leads</p>
+    </div>
+    <div class="card p-4">
+      <h2 class="fw-semibold mb-4" style="font-size:1.2rem;">Entrar na plataforma</h2>
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label" for="id_username">Usuário</label>
+          <input id="id_username" type="text" name="username" class="form-control" placeholder="seu_usuario" autofocus required>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="id_password">Senha</label>
+          <input id="id_password" type="password" name="password" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 py-2">
+          <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}{{ action }} Tenant — RevEngine{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1><i class="bi bi-building-add me-2" style="color:var(--primary)"></i>{{ action }} Tenant</h1>
+</div>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card p-4">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label" for="id_name">Nome do Tenant</label>
+          <input id="id_name" type="text" name="name" class="form-control" value="{{ tenant.name|default:'' }}" placeholder="Ex: Empresa XYZ" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="id_cohort">Cohort</label>
+          <input id="id_cohort" type="text" name="cohort" class="form-control" value="{{ tenant.cohort|default:'' }}" placeholder="Ex: 2024-Q1" required>
+        </div>
+        {% if action == 'Criar' %}
+        <hr style="border-color:var(--border)">
+        <p class="text-muted small mb-3"><i class="bi bi-person-plus me-1"></i>Usuário vinculado ao tenant</p>
+        <div class="mb-3">
+          <label class="form-label" for="id_username">Nome de usuário</label>
+          <input id="id_username" type="text" name="username" class="form-control" placeholder="usuario_cliente" required>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="id_password">Senha</label>
+          <input id="id_password" type="password" name="password" class="form-control" placeholder="••••••••" required>
+        </div>
+        {% endif %}
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary flex-grow-1">
+            <i class="bi bi-check-lg me-2"></i>{{ action }}
+          </button>
+          <a href="/admin/tenants" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

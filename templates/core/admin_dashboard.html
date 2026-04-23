@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Admin — RevEngine{% endblock %}
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center">
+  <div>
+    <h1><i class="bi bi-speedometer2 me-2" style="color:var(--primary)"></i>Dashboard Administrativo</h1>
+    <p class="text-muted mb-0">Visão geral de todos os tenants</p>
+  </div>
+  <a href="/admin/tenants/criar" class="btn btn-primary">
+    <i class="bi bi-plus-lg me-2"></i>Novo Tenant
+  </a>
+</div>
+
+<!-- Métricas globais -->
+<div class="row g-3 mb-4">
+  <div class="col-lg-4 col-md-6">
+    <div class="metric-card">
+      <div class="metric-value">{{ total_tenants }}</div>
+      <div class="metric-label"><i class="bi bi-building me-1"></i>Total de Tenants</div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6">
+    <div class="metric-card">
+      <div class="metric-value">{{ total_visits }}</div>
+      <div class="metric-label"><i class="bi bi-graph-up me-1"></i>Total de Visitas</div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6">
+    <div class="metric-card">
+      <div class="metric-value">R$ {{ total_value|floatformat:2 }}</div>
+      <div class="metric-label"><i class="bi bi-currency-dollar me-1"></i>Valor Total Capturado</div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabela de tenants -->
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center py-3">
+    <span><i class="bi bi-list-ul me-2"></i>Tenants e Métricas</span>
+    <a href="/admin/tenants" class="btn btn-sm btn-outline-secondary">Ver todos</a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Cohort</th>
+          <th>Leads</th>
+          <th>Visitas</th>
+          <th>Valor Capturado</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in tenants %}
+        <tr>
+          <td class="fw-semibold">{{ t.name }}</td>
+          <td><span class="badge-cohort">{{ t.cohort }}</span></td>
+          <td><span class="fw-semibold" style="color:var(--primary)">{{ t.total_leads }}</span></td>
+          <td>{{ t.total_visits }}</td>
+          <td>R$ {{ t.total_value|default:"0.00"|floatformat:2 }}</td>
+          <td>
+            <a href="/admin/tenants/{{ t.id }}/editar" class="btn btn-sm btn-outline-secondary me-1">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <a href="/admin/tenants/{{ t.id }}/excluir" class="btn btn-sm btn-outline-danger">
+              <i class="bi bi-trash"></i>
+            </a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="text-center text-muted py-4">Nenhum tenant cadastrado ainda.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

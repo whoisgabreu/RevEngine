@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Scan — {{ tenant.name }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+  <div class="col-md-5 col-sm-10">
+
+    <div class="text-center mb-4">
+      <i class="bi bi-qr-code-scan" style="font-size:2.5rem;color:var(--primary)"></i>
+      <h1 class="fw-bold mt-2" style="font-size:1.5rem;">{{ tenant.name }}</h1>
+      {% if valor %}
+        <span class="badge" style="background:rgba(74,222,128,.15);color:var(--success);font-size:1rem;padding:.4rem 1rem;border-radius:20px;">
+          <i class="bi bi-cash me-1"></i>R$ {{ valor }}
+        </span>
+      {% endif %}
+    </div>
+
+    <div class="card p-4">
+      {% if show_form %}
+        <h2 class="fw-semibold mb-1" style="font-size:1.1rem;">Cadastre-se para continuar</h2>
+        <p class="text-muted small mb-4">Primeira visita? Informe seus dados abaixo.</p>
+        <form method="post">
+          {% csrf_token %}
+          {% if valor %}<input type="hidden" name="valor" value="{{ valor }}">{% endif %}
+          <div class="mb-3">
+            <label class="form-label" for="id_phone">Telefone (WhatsApp)</label>
+            <input id="id_phone" type="tel" name="phone" class="form-control" placeholder="(11) 99999-9999" value="{{ phone_prefill|default:'' }}" autofocus required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="id_name">Nome completo</label>
+            <input id="id_name" type="text" name="name" class="form-control" placeholder="Seu nome" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label" for="id_birth">Data de nascimento</label>
+            <input id="id_birth" type="date" name="birth_date" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 py-2">
+            <i class="bi bi-check-circle me-2"></i>Confirmar visita
+          </button>
+        </form>
+      {% else %}
+        <h2 class="fw-semibold mb-3" style="font-size:1.1rem;">Bem-vindo de volta!</h2>
+        <p class="text-muted small mb-4">Já te reconhecemos. Confirme sua visita abaixo.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="phone" value="{{ phone_prefill }}">
+          {% if valor %}<input type="hidden" name="valor" value="{{ valor }}">{% endif %}
+          <button type="submit" class="btn btn-primary w-100 py-2">
+            <i class="bi bi-check-circle me-2"></i>Confirmar visita
+          </button>
+        </form>
+        <div class="text-center mt-3">
+          <a href="?{% if valor %}valor={{ valor }}&{% endif %}reset=1" class="small text-muted">Não é você? Usar outro número</a>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+{% endblock %}
