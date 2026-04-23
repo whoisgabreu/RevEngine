@@ -9,6 +9,7 @@ Permite que empresas (tenants) gerem QR Codes, capturem leads no momento do scan
 
 ## ⚙️ Stack Atual
 
+- **Design System:** Cyber Neon (Black background #000000, White text #FFFFFF, Neon Green #39FF14)
 - **Framework:** Django 6.0.4
 - **Banco:** SQLite (`db.sqlite3`)
 - **ORM:** Django ORM
@@ -20,6 +21,27 @@ Permite que empresas (tenants) gerem QR Codes, capturem leads no momento do scan
 ---
 
 ## 📅 Histórico de Alterações
+
+### [2026-04-23] — Novo Visual (Neon Green & Black)
+
+**Descrição:**
+Atualização completa da paleta de cores para um visual de alto contraste e estética premium.
+- Fundo totalmente preto (#000000)
+- Textos base em Branco Puro (#FFFFFF)
+- Elementos de destaque e indicadores em Verde Neon (#39FF14)
+- Adição de efeitos de brilho (glow) em elementos primários.
+
+**Arquivos afetados:**
+- `templates/base.html` — Atualização de variáveis CSS e estilos globais.
+- `project_memory.md` — Atualização da documentação da stack visual.
+
+**Motivo:**
+Melhoria da legibilidade e modernização da interface conforme pedido do usuário.
+
+**Impacto:**
+Interface mais vibrante e legivel em ambientes de baixa luminosidade, mantendo a sensação premium.
+
+---
 
 ### [2026-04-23] — Criação do MVP completo
 
